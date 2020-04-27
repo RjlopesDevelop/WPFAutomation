@@ -37,7 +37,7 @@ namespace WPFSerialApp
             {
                 try
                 {
-                    serialPort1.PortName = ComboBox1.Items[ComboBox1.SelectedIndex].ToString();
+                    serialPort1.PortName = ComboBoxPort.Items[ComboBoxPort.SelectedIndex].ToString();
                     serialPort1.Open();
 
                 }
@@ -60,7 +60,7 @@ namespace WPFSerialApp
                 try
                 {
                     serialPort1.Close();
-                    // comboBox1.Enabled = true;
+                    // ComboBoxPort.Enabled = true;
                     //  MessageBox.Show("Porta desconetada com sucesso!", "Aviso");
                     msgPortSerial.Content = "PORTA DESCONECTADA";
                     btConectar.Content = "Conectar";
@@ -83,11 +83,11 @@ namespace WPFSerialApp
             quantDiferente = false;
 
             //se a quantidade de portas mudou
-            if (ComboBox1.Items.Count == SerialPort.GetPortNames().Length)
+            if (ComboBoxPort.Items.Count == SerialPort.GetPortNames().Length)
             {
                 foreach (string s in SerialPort.GetPortNames())
                 {
-                    if (ComboBox1.Items[i++].Equals(s) == false)
+                    if (ComboBoxPort.Items[i++].Equals(s) == false)
                     {
                         quantDiferente = true;
                     }
@@ -101,7 +101,7 @@ namespace WPFSerialApp
             //Se não foi detectado diferença
             if (quantDiferente == false)
             {
-                if (ComboBox1.Items.Count == 0)
+                if (ComboBoxPort.Items.Count == 0)
                    msgPortSerial.Content = "NENHUMA PORTA ENCONTRADA";
                   // msgNotSerial.Visibility = Visibility.Visible;
                    
@@ -109,15 +109,15 @@ namespace WPFSerialApp
             }
 
             //limpa comboBox
-            ComboBox1.Items.Clear();
+            ComboBoxPort.Items.Clear();
 
             //adiciona todas as COM diponíveis na lista
             foreach (string s in SerialPort.GetPortNames())
             {
-                ComboBox1.Items.Add(s);
+                ComboBoxPort.Items.Add(s);
             }
             //seleciona a primeira posição da lista
-            ComboBox1.SelectedIndex = 0;
+            ComboBoxPort.SelectedIndex = 0;
               msgPortSerial.Content = string.Empty;
 
         }

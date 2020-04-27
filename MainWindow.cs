@@ -1,4 +1,6 @@
-﻿using System;
+﻿using System.Threading;
+using System.Drawing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 
 using System.IO.Ports;
+using System.Windows.Threading;
 
 namespace WPFSerialApp
 {
@@ -16,10 +19,17 @@ namespace WPFSerialApp
     {
 
         SerialPort serialPort1 = new SerialPort();
+        
         public MainWindow()
         {
             InitializeComponent();
-            atualizaListaCOMs();
+
+            DispatcherTimer timer = new DispatcherTimer();
+			timer.Interval = TimeSpan.FromSeconds(1);
+			timer.Tick += timer_Tick;
+
+			timer.Start();
+           
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -38,7 +48,7 @@ namespace WPFSerialApp
                 }
                 if (serialPort1.IsOpen)
                 {
-                     MessageBox.Show("Porta conectada com sucesso!", "Aviso");
+                    msgPortSerial.Content =  "PORTA CONECTADA";
                     btConectar.Content = "Desconectar";
                     // ComboBox1.Style.Setters[0].IsSealed = false;
 
@@ -51,11 +61,13 @@ namespace WPFSerialApp
                 {
                     serialPort1.Close();
                     // comboBox1.Enabled = true;
-                     MessageBox.Show("Porta desconetada com sucesso!", "Aviso");
+                    //  MessageBox.Show("Porta desconetada com sucesso!", "Aviso");
+                    msgPortSerial.Content = "PORTA DESCONECTADA";
                     btConectar.Content = "Conectar";
                 }
                 catch
                 {
+
                     return;
                 }
 
@@ -89,7 +101,11 @@ namespace WPFSerialApp
             //Se não foi detectado diferença
             if (quantDiferente == false)
             {
-                return;                     //retorna
+                if (ComboBox1.Items.Count == 0)
+                   msgPortSerial.Content = "NENHUMA PORTA ENCONTRADA";
+                  // msgNotSerial.Visibility = Visibility.Visible;
+                   
+                   return;                     //retorna
             }
 
             //limpa comboBox
@@ -102,6 +118,8 @@ namespace WPFSerialApp
             }
             //seleciona a primeira posição da lista
             ComboBox1.SelectedIndex = 0;
+              msgPortSerial.Content = string.Empty;
+
         }
         private void timerCOM_Tick(object sender, EventArgs e)
         {
@@ -109,21 +127,27 @@ namespace WPFSerialApp
         }
         private void btEnviar_Click(object sender, EventArgs e)
         {
-             //porta está aberta
-            if (serialPort1.IsOpen == true){
+            //porta está aberta
+            if (serialPort1.IsOpen == true)
+            {
                 serialPort1.Write("A");  //envia o texto presente no textbox Enviar
 
-                if (btEnviar.Content.Equals("DESLIGADO") )
+                if (btEnviar.Content.Equals("DESLIGADO"))
                 {
-                      btEnviar.Content = "LIGADO";
+                    btEnviar.Content = "LIGADO";
                 }
                 else
                 {
                     btEnviar.Content = "DESLIGADO";
                 }
-              
-            }         
-              
+
+            }
+
         }
+        private void timer_Tick(object sender, EventArgs e)
+		{
+			 atualizaListaCOMs();
+		}
+        
     }
 }

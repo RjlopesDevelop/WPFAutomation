@@ -12,14 +12,11 @@
         </Grid.RowDefinitions> -->
         <Label Content="Teste de Automação" FontSize="20" Margin="10,0,0,0" />
         <Button Content="Conectar" Name="btConectar" Grid.Row="1" FontSize="15" Click="Button_Click" VerticalAlignment="Top" Height="30" Width="100" Margin="10,60,0,0" HorizontalAlignment="Left"/>
-        <ComboBox Name="ComboBox1" Width="100" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="120,60,0,0">
-            <!-- <ComboBoxItem Content="Coffie"></ComboBoxItem>
-            <ComboBoxItem Content="Tea"></ComboBoxItem>
-            <ComboBoxItem Content="Orange Juice"></ComboBoxItem>
-            <ComboBoxItem Content="Milk"></ComboBoxItem>
-            <ComboBoxItem Content="Iced Tea"></ComboBoxItem>
-            <ComboBoxItem Content="Mango Shake"></ComboBoxItem> -->
+        <ComboBox Name="ComboBox1" FontSize="15" Width="100" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="120,60,0,0">
         </ComboBox>
+        <Label Name="msgPortSerial" Foreground="Blue" FontWeight="Bold" FontSize="15" VerticalAlignment="Top" Height="30" Width="250" Margin="230,60,0,0" HorizontalAlignment="Left"/>
+
+
         <Button Content="DESLIGADO" Name="btEnviar" Grid.Row="1" FontSize="15" Click="btEnviar_Click" VerticalAlignment="Top" Height="60" Width="100" Margin="10,100,0,0" HorizontalAlignment="Left"/>
         <!-- <TextBox Name="textBoxEnviar" VerticalAlignment="Top" Height="30" Width="100" Margin="120,100,0,0" HorizontalAlignment="Left">  </TextBox>-->
 
